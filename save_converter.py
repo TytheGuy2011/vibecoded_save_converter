@@ -4,20 +4,20 @@ from tkinter import Tk, filedialog, messagebox, Button, Label
 
 
 def dat_to_hksave():
-    hk_path = filedialog.askopenfilename(
-        title="Select hk-save.json template",
-        filetypes=[("JSON Files", "*.json")]
-    )
-
-    if not hk_path:
-        return
-
     dat_path = filedialog.askopenfilename(
         title="Select user1.dat",
         filetypes=[("DAT Files", "*.dat")]
     )
 
     if not dat_path:
+        return
+
+    hk_path = filedialog.askopenfilename(
+        title="Select hk-save.json template",
+        filetypes=[("JSON Files", "*.json")]
+    )
+
+    if not hk_path:
         return
 
     try:
@@ -127,7 +127,7 @@ Label(
 
 Button(
     root,
-    text="Convert user1.dat → hk-save.json",
+    text="Convert DAT → JSON",
     width=35,
     height=2,
     command=dat_to_hksave
@@ -135,7 +135,7 @@ Button(
 
 Button(
     root,
-    text="Convert hk-save.json → user1.dat",
+    text="Convert JSON → DAT",
     width=35,
     height=2,
     command=hksave_to_dat
@@ -143,7 +143,7 @@ Button(
 
 Label(
     root,
-    text="Standalone EXE built automatically with GitHub Actions",
+    text="Standalone EXE",
     font=("Arial", 9)
 ).pack(pady=15)
 
