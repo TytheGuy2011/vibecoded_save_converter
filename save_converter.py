@@ -41,6 +41,7 @@ def make_template():
 
 
 def dat_to_hksave():
+
     dat_path = filedialog.askopenfilename(
         title="Select user1.dat",
         filetypes=[("DAT Files", "*.dat")]
@@ -50,6 +51,7 @@ def dat_to_hksave():
         return
 
     try:
+
         hk = make_template()
 
         data = Path(dat_path).read_bytes()
@@ -60,7 +62,9 @@ def dat_to_hksave():
             contents[str(i)] = b
 
         for entry in hk:
+
             if entry["key"].endswith("/user1.dat"):
+
                 entry["value"]["contents"] = contents
 
         out_path = filedialog.asksaveasfilename(
@@ -82,10 +86,15 @@ def dat_to_hksave():
         )
 
     except Exception as e:
-        messagebox.showerror("Error", str(e))
+
+        messagebox.showerror(
+            "Error",
+            str(e)
+        )
 
 
 def hksave_to_dat():
+
     hk_path = filedialog.askopenfilename(
         title="Select hk-save.json",
         filetypes=[("JSON Files", "*.json")]
@@ -95,31 +104,40 @@ def hksave_to_dat():
         return
 
     try:
+
         with open(hk_path, "r", encoding="utf-8") as f:
             hk = json.load(f)
 
         contents = None
 
         for entry in hk:
+
             if entry["key"].endswith("/user1.dat"):
+
                 contents = entry["value"]["contents"]
+
                 break
 
         if contents is None:
-            raise Exception("user1.dat not found")
 
-        max_index = max(int(k) for k in contents.keys())
+            raise Exception(
+                "user1.dat not found"
+            )
+
+        max_index = max(
+            int(k) for k in contents.keys()
+        )
 
         data = bytearray()
 
         for i in range(max_index + 1):
 
-    v = int(contents[str(i)])
+            v = int(contents[str(i)])
 
-    # Fix signed bytes
-    v = v % 256
+            # Fix signed bytes
+            v = v % 256
 
-    data.append(v)
+            data.append(v)
 
         out_path = filedialog.asksaveasfilename(
             title="Choose where to save user1.dat",
@@ -139,12 +157,21 @@ def hksave_to_dat():
         )
 
     except Exception as e:
-        messagebox.showerror("Error", str(e))
+
+        messagebox.showerror(
+            "Error",
+            str(e)
+        )
 
 
 root = Tk()
-root.title("HK Web Save Converter")
+
+root.title(
+    "HK Web Save Converter"
+)
+
 root.geometry("420x240")
+
 root.resizable(False, False)
 
 Label(
