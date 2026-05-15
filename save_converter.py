@@ -113,7 +113,13 @@ def hksave_to_dat():
         data = bytearray()
 
         for i in range(max_index + 1):
-            data.append(contents[str(i)])
+
+    v = int(contents[str(i)])
+
+    # Fix signed bytes
+    v = v % 256
+
+    data.append(v)
 
         out_path = filedialog.asksaveasfilename(
             title="Choose where to save user1.dat",
